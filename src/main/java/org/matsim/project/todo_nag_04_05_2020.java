@@ -35,63 +35,37 @@ import java.util.List;
  * @author nagel
  *
  */
-public class RunMatsim{
+public class todo_nag_04_05_2020{
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		//Config config = ConfigUtils.loadConfig( args ) ;
+        Config config;
+        if ( args==null || args.length==0 || args[0]==null ){
+            config = ConfigUtils.loadConfig( "scenarios/equil/config1.xml" );
+        } else {
+            config = ConfigUtils.loadConfig( args );
+        }
+        config.controler().setOverwriteFileSetting(
+                OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
 
-		Config config;
-		
-		// possibly modify config here
+        // ---
 
+        Scenario scenario = ScenarioUtils.loadScenario(config) ;
 
-		if ( args==null || args.length==0 || args[0]==null ){
-			config = ConfigUtils.loadConfig( "scenarios/equil/config.xml" );
-		} else {
-			config = ConfigUtils.loadConfig( args );
-		}
+        // possibly modify scenario here
 
-		config.controler().setOverwriteFileSetting(
-				OutputDirectoryHierarchy.OverwriteFileSetting.deleteDirectoryIfExists );
+        // ---
 
-		// ---
-		
-		Scenario scenario = ScenarioUtils.loadScenario(config) ;
-		
-		// possibly modify scenario here
+        Controler controler = new Controler( scenario ) ;
 
-		//remove all agents from scenario except one
+        // possibly modify controler here
 
-//		Id<Person> interestingPersonId = Id.createPersonId(1);
-//		List<Id<Person>> personsToRemove = new ArrayList<>();
-//
-//		for (Id<Person> personId : scenario.getPopulation().getPersons().keySet()) {
-//		 if (!personId.equals(interestingPersonId)) {
-//		 personsToRemove.add(personId);
-//			}
-//		}
-//
-//		for (Id<Person> personId: personsToRemove) {
-//		scenario.getPopulation().removePerson(personId);
-//		}
-//
-//		System.out.println("Population size =" + scenario.getPopulation().getPersons().size());
-//
+        //controler.addOverridingModule(new OTFVisLiveModule() ) ;
 
+        // ---
 
+        controler.run();
 
-		// ---
-		
-		Controler controler = new Controler( scenario ) ;
-		
-		// possibly modify controler here
+    }
 
-		// controler.addOverridingModule( new OTFVisLiveModule() ) ;
-		
-
-		controler.run();
-
-	}
-	
 }
